@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HotelMangmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBLcustomer">
+          <Key>
+            <PropertyRef Name="customerId" />
+          </Key>
+          <Property Name="customerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ssnNumber" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBLreservation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fromDate" Type="datetime" />
+          <Property Name="toDate" Type="datetime" />
+          <Property Name="noOFpeople" Type="int" />
+          <Property Name="typeReservation" Type="int" />
+          <Property Name="TotalPrice" Type="float" />
+          <Property Name="Status" Type="int" />
+          <Property Name="customerId" Type="int" />
+        </EntityType>
+        <EntityType Name="TBLroom">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roomNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="typeRoom" Type="int" />
+          <Property Name="noOFbed" Type="int" />
+        </EntityType>
+        <EntityType Name="TBLroomReservation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roomID" Type="int" />
+          <Property Name="reservationID" Type="int" />
+        </EntityType>
+        <Association Name="FK_TBLreservation_TBLcustomer">
+          <End Role="TBLcustomer" Type="Self.TBLcustomer" Multiplicity="0..1" />
+          <End Role="TBLreservation" Type="Self.TBLreservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLcustomer">
+              <PropertyRef Name="customerId" />
+            </Principal>
+            <Dependent Role="TBLreservation">
+              <PropertyRef Name="customerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLroomReservation_TBLreservation">
+          <End Role="TBLreservation" Type="Self.TBLreservation" Multiplicity="0..1" />
+          <End Role="TBLroomReservation" Type="Self.TBLroomReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLreservation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TBLroomReservation">
+              <PropertyRef Name="reservationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLroomReservation_TBLroom">
+          <End Role="TBLroom" Type="Self.TBLroom" Multiplicity="0..1" />
+          <End Role="TBLroomReservation" Type="Self.TBLroomReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLroom">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TBLroomReservation">
+              <PropertyRef Name="roomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelMangmentModelStoreContainer">
+          <EntitySet Name="TBLcustomer" EntityType="Self.TBLcustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLreservation" EntityType="Self.TBLreservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLroom" EntityType="Self.TBLroom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLroomReservation" EntityType="Self.TBLroomReservation" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBLreservation_TBLcustomer" Association="Self.FK_TBLreservation_TBLcustomer">
+            <End Role="TBLcustomer" EntitySet="TBLcustomer" />
+            <End Role="TBLreservation" EntitySet="TBLreservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLroomReservation_TBLreservation" Association="Self.FK_TBLroomReservation_TBLreservation">
+            <End Role="TBLreservation" EntitySet="TBLreservation" />
+            <End Role="TBLroomReservation" EntitySet="TBLroomReservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLroomReservation_TBLroom" Association="Self.FK_TBLroomReservation_TBLroom">
+            <End Role="TBLroom" EntitySet="TBLroom" />
+            <End Role="TBLroomReservation" EntitySet="TBLroomReservation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HotelMangmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBLcustomer">
+          <Key>
+            <PropertyRef Name="customerId" />
+          </Key>
+          <Property Name="customerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ssnNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBLreservations" Relationship="Self.FK_TBLreservation_TBLcustomer" FromRole="TBLcustomer" ToRole="TBLreservation" />
+        </EntityType>
+        <EntityType Name="TBLreservation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fromDate" Type="DateTime" Precision="3" />
+          <Property Name="toDate" Type="DateTime" Precision="3" />
+          <Property Name="noOFpeople" Type="Int32" />
+          <Property Name="typeReservation" Type="Int32" />
+          <Property Name="TotalPrice" Type="Double" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="customerId" Type="Int32" />
+          <NavigationProperty Name="TBLcustomer" Relationship="Self.FK_TBLreservation_TBLcustomer" FromRole="TBLreservation" ToRole="TBLcustomer" />
+          <NavigationProperty Name="TBLroomReservations" Relationship="Self.FK_TBLroomReservation_TBLreservation" FromRole="TBLreservation" ToRole="TBLroomReservation" />
+        </EntityType>
+        <EntityType Name="TBLroomReservation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roomID" Type="Int32" />
+          <Property Name="reservationID" Type="Int32" />
+          <NavigationProperty Name="TBLreservation" Relationship="Self.FK_TBLroomReservation_TBLreservation" FromRole="TBLroomReservation" ToRole="TBLreservation" />
+          <NavigationProperty Name="TBLroom" Relationship="HotelMangmentModel.FK_TBLroomReservation_TBLroom" FromRole="TBLroomReservation" ToRole="TBLroom" />
+        </EntityType>
+        <Association Name="FK_TBLreservation_TBLcustomer">
+          <End Role="TBLcustomer" Type="Self.TBLcustomer" Multiplicity="0..1" />
+          <End Role="TBLreservation" Type="Self.TBLreservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLcustomer">
+              <PropertyRef Name="customerId" />
+            </Principal>
+            <Dependent Role="TBLreservation">
+              <PropertyRef Name="customerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLroomReservation_TBLreservation">
+          <End Role="TBLreservation" Type="Self.TBLreservation" Multiplicity="0..1" />
+          <End Role="TBLroomReservation" Type="Self.TBLroomReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLreservation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TBLroomReservation">
+              <PropertyRef Name="reservationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelMangmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBLcustomers" EntityType="Self.TBLcustomer" />
+          <EntitySet Name="TBLreservations" EntityType="Self.TBLreservation" />
+          <EntitySet Name="TBLroomReservations" EntityType="Self.TBLroomReservation" />
+          <AssociationSet Name="FK_TBLreservation_TBLcustomer" Association="Self.FK_TBLreservation_TBLcustomer">
+            <End Role="TBLcustomer" EntitySet="TBLcustomers" />
+            <End Role="TBLreservation" EntitySet="TBLreservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLroomReservation_TBLreservation" Association="Self.FK_TBLroomReservation_TBLreservation">
+            <End Role="TBLreservation" EntitySet="TBLreservations" />
+            <End Role="TBLroomReservation" EntitySet="TBLroomReservations" />
+          </AssociationSet>
+          <EntitySet Name="TBLrooms" EntityType="HotelMangmentModel.TBLroom" />
+          <AssociationSet Name="FK_TBLroomReservation_TBLroom" Association="HotelMangmentModel.FK_TBLroomReservation_TBLroom">
+            <End Role="TBLroom" EntitySet="TBLrooms" />
+            <End Role="TBLroomReservation" EntitySet="TBLroomReservations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TBLroom">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roomNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="typeRoom" Type="Int32" />
+          <Property Name="noOFbed" Type="Int32" />
+          <NavigationProperty Name="TBLroomReservations" Relationship="HotelMangmentModel.FK_TBLroomReservation_TBLroom" FromRole="TBLroom" ToRole="TBLroomReservation" />
+        </EntityType>
+        <Association Name="FK_TBLroomReservation_TBLroom">
+          <End Type="HotelMangmentModel.TBLroom" Role="TBLroom" Multiplicity="0..1" />
+          <End Type="HotelMangmentModel.TBLroomReservation" Role="TBLroomReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLroom">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TBLroomReservation">
+              <PropertyRef Name="roomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HotelMangmentModelStoreContainer" CdmEntityContainer="HotelMangmentEntities">
+          <EntitySetMapping Name="TBLcustomers">
+            <EntityTypeMapping TypeName="HotelMangmentModel.TBLcustomer">
+              <MappingFragment StoreEntitySet="TBLcustomer">
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
+                <ScalarProperty Name="customerName" ColumnName="customerName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ssnNumber" ColumnName="ssnNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLreservations">
+            <EntityTypeMapping TypeName="HotelMangmentModel.TBLreservation">
+              <MappingFragment StoreEntitySet="TBLreservation">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fromDate" ColumnName="fromDate" />
+                <ScalarProperty Name="toDate" ColumnName="toDate" />
+                <ScalarProperty Name="noOFpeople" ColumnName="noOFpeople" />
+                <ScalarProperty Name="typeReservation" ColumnName="typeReservation" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLroomReservations">
+            <EntityTypeMapping TypeName="HotelMangmentModel.TBLroomReservation">
+              <MappingFragment StoreEntitySet="TBLroomReservation">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="roomID" ColumnName="roomID" />
+                <ScalarProperty Name="reservationID" ColumnName="reservationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLrooms">
+            <EntityTypeMapping TypeName="HotelMangmentModel.TBLroom">
+              <MappingFragment StoreEntitySet="TBLroom">
+                <ScalarProperty Name="noOFbed" ColumnName="noOFbed" />
+                <ScalarProperty Name="typeRoom" ColumnName="typeRoom" />
+                <ScalarProperty Name="roomNumber" ColumnName="roomNumber" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

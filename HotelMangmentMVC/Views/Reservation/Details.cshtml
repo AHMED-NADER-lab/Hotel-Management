@@ -1,0 +1,97 @@
+﻿@model HotalMangment.Bussiness.HotelMV.ReservationMV
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ReservationMV</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customername)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customername)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fromDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fromDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.toDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.toDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.noOFpeople)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.noOFpeople)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>*@
+
+       
+
+       
+
+    </dl>
+
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TBLroomReservations.SingleOrDefault().TBLroom.roomNumber)
+            </th>
+           
+        </tr>
+
+        @foreach (var item in Model.TBLroomReservations)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TBLroom.roomNumber)
+                </td>
+            
+
+               
+            </tr>
+        }
+
+    </table>
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

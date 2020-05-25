@@ -1,0 +1,280 @@
+﻿@model HotalMangment.Bussiness.HotelMV.ReservationMV
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Createnewreservation", "Reservation"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ReservationMV</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.fromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fromDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fromDate, "", new { @class = "text-danger" })
+                @Html.ValidationMessage("fromDate2", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.numDay, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.numDay, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.numDay, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.noOFpeople, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.noOFpeople, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.noOFpeople, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+     
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.customername, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("customerId", new SelectList(Model.fillcustomer, "Id", "Name"), "Select customer", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.customername, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.roomtype, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(m => m.roomtype, "Select a license", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.roomtype, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.selectsweet, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.DropDownList("selectsweet", new SelectList(Model.fillsweet, "Name", "Name"), new { @class = "form-control", @multiple = "multiple" })*@
+                @Html.DropDownList("selectsweet", Enumerable.Empty<SelectListItem>(), new { @class = "form-control", @disabled = "disabled", @multiple = "multiple" })
+
+
+                @Html.ValidationMessageFor(model => model.selectsweet, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.selectroom3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.DropDownList("selectroom3", new SelectList(Model.fillroom3, "Name", "Name"), new { @class = "form-control", @multiple = "multiple" })*@
+                @Html.DropDownList("selectroom3", Enumerable.Empty<SelectListItem>(), new { @class = "form-control", @disabled = "disabled", @multiple = "multiple" })
+
+
+                @Html.ValidationMessageFor(model => model.selectroom3, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.selectroom2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.DropDownList("selectroom2", new SelectList(Model.fillroom2, "Name", "Name"), new { @class = "form-control",@multiple = "multiple" })*@
+                @Html.DropDownList("selectroom2", Enumerable.Empty<SelectListItem>(), new { @class = "form-control", @disabled = "disabled", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.selectroom2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $('#selectroom2').select2();
+    $('#selectroom3').select2();
+    $('#selectsweet').select2();
+
+
+
+
+
+
+
+    $("#fromDate").change(function () {
+        var selecteddate = $("#fromDate").val();
+        fillroom2(selecteddate);
+        fillroom3(selecteddate);
+        fillsweet(selecteddate);
+    });
+
+    function fillroom2(selecteddate) {
+
+        var getDistrictsUrl = '@Url.Action("Getlistroom", "Reservation")';
+        var listroom2 = $('#selectroom2');
+
+        if (selecteddate != null && selecteddate !== '') {
+            $.ajax({
+                url: getDistrictsUrl,
+                data: { fromdate: selecteddate },
+                cache: false,
+                async: false,
+                type: "POST",
+                success: function (data) {
+                    listroom2.removeAttr('disabled');
+                    listroom2.val('');
+                    listroom2.empty();
+
+                    //listroom2.append(
+                    //        $('<option/>', {
+                    //            value: "",
+                    //            text: "Select Double Room"
+                    //        })
+                    //    );
+
+                    $.each(data, function () {
+                        listroom2.append(
+                            $('<option/>', {
+                                value: this.name,
+                                text: this.name
+                            })
+                        );
+                    });
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+        } else {
+            listroom2.val('');
+            listroom2.attr("disabled", "disabled");
+        }
+    }
+
+
+    function fillroom3(selecteddate) {
+
+        var getDistrictsUrl = '@Url.Action("Getlistroom3", "Reservation")';
+        var listroom2 = $('#selectroom3');
+
+        if (selecteddate != null && selecteddate !== '') {
+            $.ajax({
+                url: getDistrictsUrl,
+                data: { fromdate: selecteddate },
+                cache: false,
+                async: false,
+                type: "POST",
+                success: function (data) {
+                    listroom2.removeAttr('disabled');
+                    listroom2.val('');
+                    listroom2.empty();
+
+                    //listroom2.append(
+                    //        $('<option/>', {
+                    //            value: "",
+                    //            text: "Select Double Room"
+                    //        })
+                    //    );
+
+                    $.each(data, function () {
+                        listroom2.append(
+                            $('<option/>', {
+                                value: this.name,
+                                text: this.name
+                            })
+                        );
+                    });
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+        } else {
+            listroom2.val('');
+            listroom2.attr("disabled", "disabled");
+        }
+    }
+
+
+
+
+    function fillsweet(selecteddate) {
+
+        var getDistrictsUrl = '@Url.Action("Getlistsweet", "Reservation")';
+        var listroom2 = $('#selectsweet');
+
+        if (selecteddate != null && selecteddate !== '') {
+            $.ajax({
+                url: getDistrictsUrl,
+                data: { fromdate: selecteddate },
+                cache: false,
+                async: false,
+                type: "POST",
+                success: function (data) {
+                    listroom2.removeAttr('disabled');
+                    listroom2.val('');
+                    listroom2.empty();
+
+                    //listroom2.append(
+                    //        $('<option/>', {
+                    //            value: "",
+                    //            text: "Select Double Room"
+                    //        })
+                    //    );
+
+                    $.each(data, function () {
+                        listroom2.append(
+                            $('<option/>', {
+                                value: this.name,
+                                text: this.name
+                            })
+                        );
+                    });
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+        } else {
+            listroom2.val('');
+            listroom2.attr("disabled", "disabled");
+        }
+    }
+
+
+
+
+    </script>
+}

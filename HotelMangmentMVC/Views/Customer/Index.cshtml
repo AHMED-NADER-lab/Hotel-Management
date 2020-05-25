@@ -1,0 +1,96 @@
+﻿@model IEnumerable<HotalMangment.Bussiness.HotelMV.CustomerMV>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@if (TempData["customerOPer"] != null)
+{
+
+    <p class="pp alert alert-success" style="display:block"> @TempData["customerOPer"]</p>
+
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.customerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ssnNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.customerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ssnNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.customerId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.customerId }) |
+            <a data-toggle="modal" onclick="openpop('@item.customerId')" data-target="#myModal">Delete</a>|
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you want to delete.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-default" id="deleteBtn" href='/Employee/delete/" + id + "'>Delete</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function openpop(id) {
+
+        $('#deleteBtn').attr("href", '/Customer/Delete/' + id)
+    }
+
+
+
+
+
+    $(document).ready(function () {
+        $(".pp").fadeOut(4000)
+
+    })
+</script>

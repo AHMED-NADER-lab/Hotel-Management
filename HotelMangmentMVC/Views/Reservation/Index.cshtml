@@ -1,0 +1,115 @@
+﻿@model IEnumerable<HotalMangment.Bussiness.HotelMV.ReservationMV>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.customername)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fromDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.toDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.noOFpeople)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.statereservation)
+        </th>
+      
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr class="trdate">
+
+        <td>
+            @Html.DisplayFor(modelItem => item.customername)
+        </td>
+        <td class="datecc">
+            
+            @Html.DisplayFor(modelItem => item.fromDate)
+           
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.toDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.noOFpeople)
+        </td>
+        <td class="stateresss">
+            @Html.DisplayFor(modelItem => item.statereservation)
+        </td>
+        <td class="colordate"></td>
+      
+        <td>
+            @if (item.statereservation.ToString() == "Pending")
+            {
+                @Html.ActionLink("Details", "Details", new { id = item.id })
+                @Html.ActionLink("Prossing", "ubdatereservation", new { id = item.id })
+            }
+            else if(item.statereservation.ToString() == "Prossing")
+            {
+                @Html.ActionLink("Details", "Details", new { id = item.id })
+                @Html.ActionLink("finish", "ubdatereservation", new { id = item.id })
+
+            }
+            else
+            {
+                @Html.ActionLink("Details", "Details", new { id = item.id })
+            }
+           
+        </td>
+    </tr>
+}
+
+</table>
+<script>
+  
+        $(".table .trdate").each(function () {
+            var row = $(this);
+            updateRow(row)
+        });
+
+
+
+        function updateRow(row) {
+            var datefroms = row.find(".datecc").text();
+            var statusress = row.find(".stateresss").text();
+            var statusCell = row.find(".colordate");
+            var getDistrictsUrl = '@Url.Action("checkdateeveryday", "Reservation")';
+
+            $.ajax({
+                url: getDistrictsUrl,
+                data: { fromdate: datefroms, valstate: statusress },
+                cache: false,
+                async: false,
+                type: "POST",
+                success: function (data) {
+                    $(".colordate").html(data);
+
+
+                },
+
+            });
+
+
+
+        }
+
+
+</script>
+
+
+
